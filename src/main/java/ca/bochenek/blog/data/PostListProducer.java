@@ -23,4 +23,9 @@ public class PostListProducer {
     	return em.find(Post.class, id);
     }
 
+	public List<Post> findByYear(long year) {
+		String dateStr = " where post_date between '" + year + "-01-01' and '" + year + "-12-31'";
+    	return em.createQuery("select p from Post p " + dateStr).getResultList();
+    }
+
 }

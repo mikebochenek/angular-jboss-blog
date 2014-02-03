@@ -35,6 +35,7 @@ public class PostResourceRESTService {
         return listProducer.loadAll();
     }
 
+    /*
     @GET
     @Path("/{id:[0-9][0-9]*}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -45,4 +46,17 @@ public class PostResourceRESTService {
         }
         return post;
     }
+    */
+    
+    @GET
+    @Path("/{year:[2][0][0-9][0-9]*}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Post> lookupPostByYear(@PathParam("year") long year) {
+        List<Post> post = listProducer.findByYear(year);
+        if (post == null || post.size() == 0) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+        return post;
+    }
+    
 }
